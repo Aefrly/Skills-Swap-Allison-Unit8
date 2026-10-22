@@ -1,5 +1,7 @@
+//import functions to test
 const {filterSkillsByCategory } = require('../skillswap-functions');
 
+//example skills array to test with
 const skills = [
   { title: 'Python Tutoring', category: 'Programming', price: 20 },
   { title: 'Guitar Lessons', category: 'Music', price: 15 },
@@ -7,6 +9,7 @@ const skills = [
   { title: 'Web Development', category: 'Programming', price: 25 }
 ];
 
+//test suite for filterSkillsByCategory function
 describe('filter skills by category', () => {
     test('filters skills by category', () => {
         expect(filterSkillsByCategory(skills, 'Programming')).toEqual([{ title: 'Python Tutoring', category: 'Programming', price: 20 },
