@@ -1,10 +1,3 @@
-/*In skillswap.test.js, write a test suite for filterSkillsByCategory that tests that the function:
-
-Filters skills by category
-Handles "All" category
-Checks for an empty array when no matches.
-Run npm test to see tests fail. Be sure to commit your work at this point! */
-
 const {filterSkillsByCategory } = require('../skillswap-functions');
 
 const skills = [
