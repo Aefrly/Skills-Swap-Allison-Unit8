@@ -36,3 +36,16 @@ filterButtons.forEach((button) => {
 		});
 	});
 });
+
+//calculate total cost based on hours and rate inputs and button click
+const rateInput = document.getElementById("hourly-rate");
+const hoursInput = document.getElementById("hours");
+const calculateButton = document.getElementById("calculate-cost");
+const resultDisplay = document.getElementById("total-cost");
+
+calculateButton.addEventListener("click", () => {
+	const hourlyRate = parseFloat(rateInput.value);
+	const hours = parseFloat(hoursInput.value);
+	const totalCost = calculateTotalCost(hourlyRate, hours);
+	resultDisplay.textContent = `Total Cost: $${totalCost.toFixed(2)}`;
+});
