@@ -1,5 +1,5 @@
 //import functions to test
-const {filterSkillsByCategory, calculateTotalCost} = require('../skillswap-functions');
+const {filterSkillsByCategory, calculateTotalCost, matchSkillsToUser} = require('../skillswap-functions');
 
 //example skills array to test with
 const skills = [
@@ -45,7 +45,7 @@ describe('match skills to user', () => {
     test('matches by category and price', () => {
         const user1Needs = { category: 'Programming', maxPrice: 30 };
         expect(matchSkillsToUser(user1Needs, skills)).toEqual([{ title: 'Python Tutoring', category: 'Programming', price: 20 }, 
-                                                               { title: 'JavaScript Help', category: 'Programming', price: 25 }]);
+                                                               { title: 'Web Development', category: 'Programming', price: 25 }]);
     });
     test('filters by max price', () => {
         const user2Needs = { category: 'Programming', maxPrice: 20 };
