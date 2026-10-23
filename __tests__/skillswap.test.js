@@ -39,3 +39,24 @@ describe('calculate total cost', () => {
         expect(calculateTotalCost(25, 1.5)).toBe(37.5);
     });
 });
+
+//test suite for matchSkillsToUser function
+describe('match skills to user', () => {
+    test('matches by category and price', () => {
+        const user1Needs = { category: 'Programming', maxPrice: 30 };
+        expect(matchSkillsToUser(user1Needs, skills)).toEqual([{ title: 'Python Tutoring', category: 'Programming', price: 20 }, 
+                                                               { title: 'JavaScript Help', category: 'Programming', price: 25 }]);
+    });
+    test('filters by max price', () => {
+        const user2Needs = { category: 'Programming', maxPrice: 20 };
+        expect(matchSkillsToUser(user2Needs, skills)).toEqual([{ title: 'Python Tutoring', category: 'Programming', price: 20 }]);
+    });
+    test('returns empty array for no matches', () => {
+        const user3Needs = { category: 'Cooking', maxPrice: 100 };
+        expect(matchSkillsToUser(user3Needs, skills)).toEqual([]);
+    });
+    test(' includes free skills', () => {
+        const user4Needs = { category: 'Career', maxPrice: 0 };
+        expect(matchSkillsToUser(user4Needs, skills)).toEqual([{ title: 'Resume Review', category: 'Career', price: 0 }]); 
+    });
+});
