@@ -12,10 +12,19 @@ document.querySelectorAll(".skill-details-toggle").forEach((button) => {
 });
 
 //picking out skill cards and creating an array with their category and column - AI
-const skillCards = Array.from(document.querySelectorAll(".skill-card")).map((card) => ({
-	category: card.dataset.category,
-	column: card.closest(".col"),
-}));
+const skillCards = Array.from(document.querySelectorAll(".skill-card")).map((card) => {
+	const categoryText = card.querySelector(".skill-category").textContent;
+	const priceText = card.querySelector(".skill-price").textContent;
+
+	return {
+		//AI to parse category and price from the skill cards
+		category: categoryText.replace("Category:", "").trim(),
+		price: priceText.toLowerCase().includes("free")
+			? 0
+			: Number(priceText.replace(/[^0-9.]/g, "")),
+		column: card.closest(".col"),
+	};
+});
 
 //variable to hold the buttons for filtering skills by category
 const filterButtons = document.querySelectorAll(".filter-btn");
@@ -48,4 +57,20 @@ calculateButton.addEventListener("click", () => {
 	const hours = parseFloat(hoursInput.value);
 	const totalCost = calculateTotalCost(hourlyRate, hours);
 	resultDisplay.textContent = `Total Cost: $${totalCost.toFixed(2)}`;
+});
+
+//find matching skill cards based on user input for category and max price
+const categoryInput = document.getElementById("category-preference");
+const maxPriceInput = document.getElementById("max-price");
+const findMatchButton = document.getElementById("find-match-btn");
+
+findMatchButton.addEventListener("click", () => {
+	const categoryPreference = categoryInput.value;
+	const maxPrice = parseFloat(maxPriceInput.value);
+	const userNeeds = {category: categoryPreference, maxPrice: maxPrice};
+	const matchedSkills = new Set(matchSkillsToUser(userNeeds, skillCards));
+
+	skillCards.forEach((skill) => {
+		skill.column.hidden = !matchedSkills.has(skill);
+	});
 });
